@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/config/global.params.dart';
 
 class MyDrawer extends StatelessWidget{
   @override
@@ -10,37 +11,20 @@ class MyDrawer extends StatelessWidget{
               child: CircleAvatar(backgroundImage:AssetImage("/images/img-perso.jpeg"),
                 radius: 30,)
           ),
-          ListTile(
-              title: Text("Home",style: TextStyle(fontSize: 30)),
-              leading: Icon(Icons.home),
-              trailing: Icon(Icons.arrow_right),
-              onTap: (){
-                Navigator.of(context).pop();
-                Navigator.pushNamed(context, "/");
-              }
-          ),
-          Divider(height: 10),
 
-          ListTile(
-              title: Text("Meteo",style: TextStyle(fontSize: 30)),
-              leading: Icon(Icons.home),
-              trailing: Icon(Icons.arrow_right),
-              onTap: (){
-                Navigator.of(context).pop();
-                Navigator.pushNamed(context, "/meteo");
-              }
-          ),
-          Divider(height: 10),
+          ...(GlobalParams.menu as List).map(
+                  (item){
+                   return ListTile(
+                       title: Text(item['title'],style: TextStyle(fontSize: 30)),
+                       leading: item['icon'],
+                       trailing: Icon(Icons.arrow_right),
+                       onTap: (){
+                         Navigator.of(context).pop();
+                         Navigator.pushNamed(context, item['route']);
+                       }
+                   );
+                  })
 
-          ListTile(
-              title: Text("Gallery",style: TextStyle(fontSize: 30)),
-              leading: Icon(Icons.home),
-              trailing: Icon(Icons.arrow_right),
-              onTap: (){
-                Navigator.of(context).pop();
-                Navigator.pushNamed(context, "/gellery");
-              }
-          )
         ],
       ),
     );
